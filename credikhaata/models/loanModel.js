@@ -1,9 +1,25 @@
 const mongoose = require('mongoose');
 
+const repaymentSchema = new mongoose.Schema({
+  amount: {
+    type: Number,
+    required: true
+  },
+  date: {
+    type: Date,
+    default: Date.now
+  }
+}, { _id: false });
+
 const loanSchema = new mongoose.Schema({
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User', // Reference to the User model
+    required: true
+  },
   customer: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Customer', // The loan is associated with a customer
+    ref: 'Customer',
     required: true
   },
   amount: {
@@ -32,9 +48,14 @@ const loanSchema = new mongoose.Schema({
   endDate: {
     type: Date,
     required: true
+  },
+  repayments: [repaymentSchema],  // Track individual repayments
+  totalPaid: {
+    type: Number,
+    default: 0
   }
 }, { timestamps: true });
 
 const Loan = mongoose.model('Loan', loanSchema);
 
-module.exports = Loan;
+module.exports = Loan; 

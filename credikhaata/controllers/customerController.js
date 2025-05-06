@@ -1,4 +1,4 @@
-const Customer = require('../models/customerModel');
+const Customer = require('../credikhaata/models/customerModel');
 const validateCustomer = require('../middleware/validateCustomer');
 
 // Create a new customer
